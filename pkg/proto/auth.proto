@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "proto/auth";
+
+
+service AuthService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc GetAllUsers(GetUsersRequest) returns (GetUsersResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string access_token = 1;
+}
+
+message GetUsersRequest {
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message CreateUserRequest {
+  repeated Role roles = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message CreateUserResponse {
+  bool status = 1;
+  string message = 2;
+}
+
+message UpdateUserRequest {
+  string name = 1;
+}
+
+message UpdateUserResponse {
+  bool status = 1;
+  string message = 2;
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+}
+
+message DeleteUserResponse {
+  bool status = 1;
+  string message = 2;
+}
+
+message User {
+  repeated Role roles = 1;
+  string role_name = 2;
+  string name = 3;
+  string email = 4;
+  string last_access = 5;
+}
+
+message Role {
+  string role_id = 1;
+  string role_name = 2;
+}
